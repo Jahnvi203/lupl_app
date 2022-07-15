@@ -181,7 +181,7 @@ else:
         all_with_users_change.append(temp_branch_change)
 
 ########## OVERVIEW #####################################################################################################    
-st.title("Overview")
+st.header("Overview")
 st.write("(Rajah & Tann Singapore ONLY)")
 if lawyers is None or secretaries is None or mad is None:
     st.write("Please upload the input files before viewing results.")
@@ -377,7 +377,7 @@ else:
     st.write(monthly_users_count_by_pg_type_excel_dataframe)
 
 ########## DETAILED #####################################################################################################
-st.title("Detailed")
+st.header("Detailed")
 if lawyers is None or secretaries is None or mad is None:
     st.write("Please upload the input files before viewing results.")
 else:
@@ -403,7 +403,7 @@ else:
         st.write(dataframe_micro)
 
 ########## TOP 20 POWER USERS PER PG ####################################################################################
-st.title('Top 20 Power Users per PG')
+st.header('Top 20 Power Users per PG')
 if lawyers is None or secretaries is None or mad is None:
     st.write("Please upload the input files before viewing results.")
 else:
