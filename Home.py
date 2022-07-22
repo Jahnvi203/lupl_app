@@ -1,3 +1,4 @@
+from turtle import width
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -181,7 +182,7 @@ else:
         all_with_users_change.append(temp_branch_change)
 
 ########## OVERVIEW #####################################################################################################    
-st.header("Overview")
+st.title("Overview")
 st.write("(Rajah & Tann Singapore ONLY)")
 if lawyers is None or secretaries is None or mad is None:
     st.write("Please upload the input files before viewing results.")
@@ -259,7 +260,7 @@ else:
     )
 
     st.altair_chart(monthly_users_count_chart_data, use_container_width = True)
-    st.write(monthly_users_count_dataframe)
+    st.table(monthly_users_count_dataframe)
 
     monthly_users_count_by_type = []
     monthly_users_count_by_type_v2 = []
@@ -299,7 +300,7 @@ else:
 
     st.altair_chart(monthly_users_count_by_type_chart_data, use_container_width = True)
 
-    st.write(monthly_users_count_by_type_dataframe)
+    st.table(monthly_users_count_by_type_dataframe)
 
     monthly_users_count_by_pg_type = []
 
@@ -318,15 +319,18 @@ else:
                     else:
                         other_count += 1
             pg_users_count.append([months[p - 4], lawyer_count, sec_count, other_count])
-        monthly_users_count_by_pg_type.append([pg, pg_users_count])
-
+        monthly_users_count_by_pg_type.append([pg, pg_users_count, [total_lawyers_per_pg[pgs.index(pg)], total_secretaries_per_pg[pgs.index(pg)]]])
+    
     monthly_users_count_by_pg_type_excel = []
 
     for row in monthly_users_count_by_pg_type:
         temprow_excel = []
         temprow_excel.append(row[0])
+        print(row[1])
         for item in row[1]:
             temprow_excel += item[1:]
+        temprow_excel.append(row[2][0])
+        temprow_excel.append(row[2][1])
         monthly_users_count_by_pg_type_excel.append(temprow_excel)
 
     monthly_users_count_by_pg_type_excel_header = ["Practice Group"]
@@ -335,6 +339,7 @@ else:
         monthly_users_count_by_pg_type_excel_header.append(month + " Lawyer Users Count")
         monthly_users_count_by_pg_type_excel_header.append(month + " Secretary Users Count")
         monthly_users_count_by_pg_type_excel_header.append(month + " Others Users Count")
+    monthly_users_count_by_pg_type_excel_header += ["Total Lawyers", "Total Secretaries"]
 
     individual_charts = []
 
@@ -346,6 +351,7 @@ else:
             temp_pg.append(row[l + 1])
             temp_month_pg.append(temp_pg)
         individual_charts.append(temp_month_pg)
+    print(individual_charts)
     
     for pg_row in individual_charts:
         for b in range(len(pg_row)):
@@ -373,11 +379,34 @@ else:
         st.altair_chart(monthly_users_count_by_pg_type_chart_data, use_container_width = True)
     
     monthly_users_count_by_pg_type_excel_dataframe = pd.DataFrame(monthly_users_count_by_pg_type_excel, columns = monthly_users_count_by_pg_type_excel_header)
+    
+    avg_overall = []
 
-    st.write(monthly_users_count_by_pg_type_excel_dataframe)
+    for row in monthly_users_count_by_pg_type_excel:
+        total_lawyer = 0
+        total_secretary = 0
+        explanation = ""
+        for l in range(1, len(row) - 2, 3):
+            avg_lawyer = (row[l] / row[37]) * 100
+            if row[38] != 0:
+                avg_secretary = (row[l + 1] / row[38]) * 100
+            total_lawyer += avg_lawyer
+            total_secretary += avg_secretary
+        avg_total_lawyer = total_lawyer / 12
+        avg_total_secretary = total_secretary / 12
+        if avg_total_lawyer > avg_total_secretary:
+            explanation = "Lawyers Using More"
+        elif avg_total_secretary > avg_total_lawyer:
+            explanation = "Secretaries Using More"
+        else:
+            explanation = "Equal Usage"
+        avg_overall.append([row[0], avg_total_lawyer, avg_total_secretary, explanation])
+
+    avg_overall_df = pd.DataFrame(avg_overall, columns = ["Practice Group", "% of Lawyers Using", "% of Secretaries Using", "Remarks"])
+    st.table(avg_overall_df)
 
 ########## DETAILED #####################################################################################################
-st.header("Detailed")
+st.title("Detailed")
 if lawyers is None or secretaries is None or mad is None:
     st.write("Please upload the input files before viewing results.")
 else:
@@ -403,7 +432,7 @@ else:
         st.write(dataframe_micro)
 
 ########## TOP 20 POWER USERS PER PG ####################################################################################
-st.header('Top 20 Power Users per PG')
+st.title('Top 20 Power Users per PG')
 if lawyers is None or secretaries is None or mad is None:
     st.write("Please upload the input files before viewing results.")
 else:
