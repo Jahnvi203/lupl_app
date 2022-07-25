@@ -339,36 +339,47 @@ else:
     monthly_users_count_by_pg_type_excel_header += ["Total Lawyers", "Total Secretaries"]
 
     individual_charts = []
-    
-    st.dataframe(monthly_users_count_by_pg_type_excel)
 
-    for row in monthly_users_count_by_pg_type_excel:
-        temp_month_pg = []
-        for l in range(1, len(row) - 2, 3):
-            temp_pg = []
-            temp_pg.append(row[l])
-            temp_pg.append(row[l + 1])
-            temp_month_pg.append(temp_pg)
-        individual_charts.append(temp_month_pg)
+    for pg in pgs:
+        for_each_pg = []
+        for_each_pg.append(pg)
+        for month in months:
+            for_each_pg.append([0, 0, 0])
+        for row in power_users_only_average:
+            if row[2] == pg:
+                for c in range(4, len(row)):
+                    if row[c] > 0:
+                        if row[3] == "Lawyer":
+                            for_each_pg[c - 3][0] += 1
+                        elif row[3] == "Secretary":
+                            for_each_pg[c - 3][1] += 1
+                        else:
+                            for_each_pg[c - 3][2] += 1
+        individual_charts.append(for_each_pg)
     
     for pg_row in individual_charts:
-        for b in range(len(pg_row)):
-            pg_row[b].insert(0, months[b])
+        for d in range(1, len(pg_row)):
+            pg_row[d].insert(0, dt.strptime(months[d - 1], '%b-%y').strftime('%Y-%m'))
+
+    individual_charts_v2 = []
+
+    for pg_row in individual_charts:
+        new_pg_row = [pg_row[0]]
+        for e in range(1, len(pg_row)):
+            new_pg_row.append([pg_row[e][0], "Lawyer", pg_row[e][1]])
+            new_pg_row.append([pg_row[e][0], "Secretary", pg_row[e][2]])
+            new_pg_row.append([pg_row[e][0], "Other", pg_row[e][3]])
+        individual_charts_v2.append(new_pg_row)
 
     st.subheader("Count of Total Monthly Users per PG by Type")
 
-    for c in range(len(individual_charts)):
-        st.write(pgs[c])
-        temp_pg_month = []
-        for d in range(len(individual_charts[c])):
-            temp_pg_month.append([individual_charts[c][d][0], "Lawyer", individual_charts[c][d][1]])
-            temp_pg_month.append([individual_charts[c][d][0], "Secretary", individual_charts[c][d][2]])
-            temp_pg_month.append([individual_charts[c][d][0], "Other", individual_charts[c][d][2]])
-        for row in temp_pg_month:
-            if row != []:
-                row[0] = dt.strptime(row[0], '%b-%y').strftime('%Y-%m')
+    for pg_data in individual_charts_v2:
+        st.write(pg_data[0])
+        pg_chart_data = []
+        for j in range(1, len(pg_data)):
+            pg_chart_data.append(pg_data[j])
         dataframe_pg_month = pd.DataFrame()
-        dataframe_pg_month = pd.DataFrame(temp_pg_month, columns = ["Month", "Type", "Users Count"])
+        dataframe_pg_month = pd.DataFrame(pg_chart_data, columns = ["Month", "Type", "Users Count"])
         monthly_users_count_by_pg_type_chart_data = alt.Chart(dataframe_pg_month).mark_line().encode(
             x = "Month",
             y = "Users Count",
@@ -380,6 +391,7 @@ else:
     
     avg_overall = []
 
+    pg_count = 0
     for row in monthly_users_count_by_pg_type_excel:
         total_lawyer = 0
         total_secretary = 0
@@ -398,9 +410,10 @@ else:
             explanation = "Secretaries Using More"
         else:
             explanation = "Equal Usage"
-        avg_overall.append([row[0], avg_total_lawyer, avg_total_secretary, explanation])
+        avg_overall.append([row[0], str(round(avg_total_lawyer, 2)) + "% (" + str(row[l]) + ")", total_lawyers_per_pg[pg_count], str(round(avg_total_secretary, 2)) + "% (" + str(row[l + 1]) + ")", total_secretaries_per_pg[pg_count], explanation])
+        pg_count += 1
 
-    avg_overall_df = pd.DataFrame(avg_overall, columns = ["Practice Group", "% of Lawyers Using", "% of Secretaries Using", "Remarks"])
+    avg_overall_df = pd.DataFrame(avg_overall, columns = ["Practice Group", "% of Lawyers Using", "Total Lawyers", "% of Secretaries Using", "Total Secretaries", "Remarks"])
     st.table(avg_overall_df)
 
 ########## DETAILED #####################################################################################################
