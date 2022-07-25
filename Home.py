@@ -289,7 +289,7 @@ else:
     
     monthly_users_count_by_type_dataframe_v2 = pd.DataFrame(monthly_users_count_by_type_v2, columns = ["Month", "Type", "Users Count"])
 
-    print(monthly_users_count_by_type_dataframe_v2)
+    st.dataframe(monthly_users_count_by_type_dataframe_v2)
 
     st.subheader("Count of Total Monthly Users by Type (Lawyer/Secretary/Other)")
     monthly_users_count_by_type_chart_data = alt.Chart(monthly_users_count_by_type_dataframe_v2).mark_line().encode(
