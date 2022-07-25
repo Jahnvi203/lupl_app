@@ -8,7 +8,7 @@ from copy import deepcopy
 import altair as alt
 from datetime import datetime as dt
 
-st.title("Welcome to R&TT's LUPL Statistics App")
+st.title("Welcome to R&TT's LUPL Usage Statistics App")
 
 ########## INPUT ########################################################################################################
 st.header('Input')
