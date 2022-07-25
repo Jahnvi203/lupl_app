@@ -8,7 +8,6 @@ from copy import deepcopy
 import altair as alt
 from datetime import datetime as dt
 
-
 st.title('Welcome to LUPL Statistics')
 
 ########## INPUT ########################################################################################################
@@ -278,7 +277,7 @@ else:
                     other_count += 1
         monthly_users_count_by_type.append([months[n - 4], lawyer_count, total_lawyers, sec_count, total_secretaries, other_count])
         monthly_users_count_by_type_v2.append([months[n - 4], "Lawyer", lawyer_count])
-        monthly_users_count_by_type_v2.append([months[n - 4], "Secretary", secretary_count])
+        monthly_users_count_by_type_v2.append([months[n - 4], "Secretary", sec_count])
         monthly_users_count_by_type_v2.append([months[n - 4], "Other", other_count])
 
     for row in monthly_users_count_by_type_v2:
@@ -289,6 +288,8 @@ else:
     monthly_users_count_by_type_dataframe = pd.DataFrame(monthly_users_count_by_type, columns = ["Month", "Lawyer Users Count", "Total Lawyers", "Secretary Users Count", "Total Secretaries", "Others User Count"])
     
     monthly_users_count_by_type_dataframe_v2 = pd.DataFrame(monthly_users_count_by_type_v2, columns = ["Month", "Type", "Users Count"])
+
+    print(monthly_users_count_by_type_dataframe_v2)
 
     st.subheader("Count of Total Monthly Users by Type (Lawyer/Secretary/Other)")
     monthly_users_count_by_type_chart_data = alt.Chart(monthly_users_count_by_type_dataframe_v2).mark_line().encode(
@@ -325,7 +326,6 @@ else:
     for row in monthly_users_count_by_pg_type:
         temprow_excel = []
         temprow_excel.append(row[0])
-        print(row[1])
         for item in row[1]:
             temprow_excel += item[1:]
         temprow_excel.append(row[2][0])
@@ -350,7 +350,6 @@ else:
             temp_pg.append(row[l + 1])
             temp_month_pg.append(temp_pg)
         individual_charts.append(temp_month_pg)
-    print(individual_charts)
     
     for pg_row in individual_charts:
         for b in range(len(pg_row)):
