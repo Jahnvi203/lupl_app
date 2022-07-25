@@ -339,6 +339,8 @@ else:
     monthly_users_count_by_pg_type_excel_header += ["Total Lawyers", "Total Secretaries"]
 
     individual_charts = []
+    
+    st.dataframe(monthly_users_count_by_pg_type_excel)
 
     for row in monthly_users_count_by_pg_type_excel:
         temp_month_pg = []
@@ -352,8 +354,6 @@ else:
     for pg_row in individual_charts:
         for b in range(len(pg_row)):
             pg_row[b].insert(0, months[b])
-    
-    st.write(individual_charts)
 
     st.subheader("Count of Total Monthly Users per PG by Type")
 
