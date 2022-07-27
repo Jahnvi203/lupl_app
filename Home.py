@@ -446,8 +446,8 @@ if submit:
             st.write("Micro View")
             st.write(dataframe_micro)
 
-    ########## TOP 20 POWER USERS PER PG ####################################################################################
-    st.title('Top 20 Power Users per PG')
+    ########## TOP 2 POWER USERS PER PG ####################################################################################
+    st.title('Top 2 Power Users per PG')
     if lawyers is None or secretaries is None or mad is None:
         st.write("Please upload the input files before viewing results.")
     else:
