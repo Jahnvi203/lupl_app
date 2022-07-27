@@ -365,7 +365,6 @@ if submit:
                     for c in range(4, len(row)):
                         if row[c] > 0:
                             if row[3] == "Lawyer":
-                                print([c - 3])
                                 for_each_pg[c - 3][0] += 1
                             elif row[3] == "Secretary":
                                 for_each_pg[c - 3][1] += 1
