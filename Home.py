@@ -70,7 +70,7 @@ if submit:
         for row in secretaries_data:
             if row[1] is not None and row[1].lower() not in output_raw:
                 output_raw.append(row[1].lower())
-        
+
         output_raw_v2 = []
 
         for email in output_raw:
@@ -147,14 +147,17 @@ if submit:
         output_final_no_empty_with_average = deepcopy(output_final_no_empty)
 
         for row in output_final_no_empty_with_average:
-            for w in range(4, 27, 2):
+            end_limit = (len(months) * 2) + 4
+            for w in range(4, end_limit, 2):
                 average_days_time = (row[w] + row[w + 1]) / 2
                 row.append(average_days_time)
 
         output_final_no_empty_with_change = deepcopy(output_final_no_empty_with_average)
 
         for row in output_final_no_empty_with_change:
-            for v in range(29, 40):
+            start = (len(months) * 2) + 4 + 1
+            end = (len(months) * 2) + 4 + len(months)
+            for v in range(start, end):
                 if row[v - 1] == 0.0 and row[v] - row[v - 1] == 0.0:
                     row.append(0.0)
                 elif row[v - 1] == 0.0 and row[v] - row[v - 1] != 0.0:
@@ -166,7 +169,8 @@ if submit:
         output_final_no_empty_only_change = []
 
         for row in output_final_no_empty_with_change:
-            temp_change_only = row[0:4] + row[40:]
+            end_limit = (len(months) * 2) + 4 + len(months)
+            temp_change_only = row[0:4] + row[end_limit:]
             output_final_no_empty_only_change.append(temp_change_only)
 
         all_with_users_change = []
@@ -225,7 +229,8 @@ if submit:
         power_users_only_average = []
 
         for row in output_final_no_empty_with_average:
-            temprow_average = row[0:4] + row[28:]
+            end_limit = (len(months) * 2) + 4
+            temprow_average = row[0:4] + row[end_limit:]
             power_users_only_average.append(temprow_average)
 
         monthly_users_count = []
@@ -235,7 +240,8 @@ if submit:
 
         for branch in all:
             branch_users = []
-            for n in range(4, 16):
+            end_limit = len(months) + 4
+            for n in range(4, end_limit):
                 count = 0
                 for row in power_users_only_average:
                         if row[n] > 0.0 and row[0].lower().endswith("rajahtann.com"):
@@ -267,7 +273,9 @@ if submit:
         monthly_users_count_by_type = []
         monthly_users_count_by_type_v2 = []
 
-        for n in range(4, 16):
+        end_limit = len(months) + 4
+
+        for n in range(4, end_limit):
             lawyer_count = 0
             sec_count = 0
             other_count = 0
@@ -308,7 +316,7 @@ if submit:
 
         for pg in pgs:
             pg_users_count = []
-            for p in range(4, 16):
+            for p in range(4, end_limit):
                 lawyer_count = 0
                 sec_count = 0
                 other_count = 0
@@ -322,7 +330,7 @@ if submit:
                             other_count += 1
                 pg_users_count.append([months[p - 4], lawyer_count, sec_count, other_count])
             monthly_users_count_by_pg_type.append([pg, pg_users_count, [total_lawyers_per_pg[pgs.index(pg)], total_secretaries_per_pg[pgs.index(pg)]]])
-        
+
         monthly_users_count_by_pg_type_excel = []
 
         for row in monthly_users_count_by_pg_type:
@@ -333,6 +341,9 @@ if submit:
             temprow_excel.append(row[2][0])
             temprow_excel.append(row[2][1])
             monthly_users_count_by_pg_type_excel.append(temprow_excel)
+        
+        # Remove
+        st.dataframe(monthly_users_count_by_pg_type_excel)
 
         monthly_users_count_by_pg_type_excel_header = ["Practice Group"]
 
@@ -354,6 +365,7 @@ if submit:
                     for c in range(4, len(row)):
                         if row[c] > 0:
                             if row[3] == "Lawyer":
+                                print([c - 3])
                                 for_each_pg[c - 3][0] += 1
                             elif row[3] == "Secretary":
                                 for_each_pg[c - 3][1] += 1
@@ -395,15 +407,19 @@ if submit:
         
         avg_overall = []
 
+        st.dataframe(monthly_users_count_by_pg_type_excel)
+
         pg_count = 0
         for row in monthly_users_count_by_pg_type_excel:
             total_lawyer = 0
             total_secretary = 0
             explanation = ""
+            lawyer_divider = 1 + (len(months) * 3)
+            secretary_divider = 1 + (len(months) * 3)
             for l in range(1, len(row) - 2, 3):
-                avg_lawyer = (row[l] / row[37]) * 100
+                avg_lawyer = (row[l] / lawyer_divider) * 100
                 if row[38] != 0:
-                    avg_secretary = (row[l + 1] / row[38]) * 100
+                    avg_secretary = (row[l + 1] / secretary_divider) * 100
                 total_lawyer += avg_lawyer
                 total_secretary += avg_secretary
             avg_total_lawyer = total_lawyer / 12
@@ -483,7 +499,7 @@ if submit:
 
         for l in range(len(users_per_pg)):
             power_users_final_per_pg = []
-            for k in range(4, 16):
+            for k in range(4, end_limit):
                 temp_per_pg = []
                 temp_per_pg = users_per_pg[l].sort(key=lambda x: -x[k])
                 if users_per_pg[l] == []:
