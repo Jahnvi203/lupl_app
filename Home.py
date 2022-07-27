@@ -487,25 +487,25 @@ if submit:
                 temp_per_pg = []
                 temp_per_pg = users_per_pg[l].sort(key=lambda x: -x[k])
                 if users_per_pg[l] == []:
-                    power_users_final_per_pg.append([pgs[l], "None", "None"])
+                    power_users_final_per_pg.append([pgs[l], "None", "None", "None", "None"])
                 elif len(users_per_pg[l]) == 1:
                     power_user_1 = users_per_pg[l][0]
                     if power_user_1[k] == 0.0:
-                        power_users_final_per_pg.append([pgs[l], "None", "None"])
+                        power_users_final_per_pg.append([pgs[l], "None", "None", "None", "None"])
                     else:
-                        power_users_final_per_pg.append([pgs[l], power_user_1[1], "None"])
+                        power_users_final_per_pg.append([pgs[l], power_user_1[1], power_user_1[3], "None", "None"])
                 elif len(users_per_pg[l]) > 1:
                     power_user_1 = users_per_pg[l][0]
                     power_user_2 = users_per_pg[l][1]
                     if power_user_1[k] == 0.0 and power_user_2[k] == 0.0:
-                        power_users_final_per_pg.append([pgs[l], "None", "None"])
+                        power_users_final_per_pg.append([pgs[l], "None", "None", "None", "None"])
                     elif power_user_1[k] != 0.0 and power_user_2[k] == 0.0:
-                        power_users_final_per_pg.append([pgs[l], power_user_1[1], "None"])
+                        power_users_final_per_pg.append([pgs[l], power_user_1[1], power_user_1[3], "None", "None"])
                     else:
-                        power_users_final_per_pg.append([pgs[l], power_user_1[1], power_user_2[1]])
+                        power_users_final_per_pg.append([pgs[l], power_user_1[1], power_user_1[3], power_user_2[1], power_user_2[3]])
             power_users_final.append(power_users_final_per_pg)
 
-        power_users_header = ["Practice Group", "Power User 1", "Power User 2"]
+        power_users_header = ["Practice Group", "Power User 1", "Power User 1 Type", "Power User 2", "Power User 2 Type"]
 
         files_power_users = []
 
