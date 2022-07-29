@@ -342,9 +342,6 @@ if submit:
             temprow_excel.append(row[2][1])
             monthly_users_count_by_pg_type_excel.append(temprow_excel)
         
-        # Remove
-        st.dataframe(monthly_users_count_by_pg_type_excel)
-
         monthly_users_count_by_pg_type_excel_header = ["Practice Group"]
 
         for month in months:
@@ -405,8 +402,6 @@ if submit:
         monthly_users_count_by_pg_type_excel_dataframe = pd.DataFrame(monthly_users_count_by_pg_type_excel, columns = monthly_users_count_by_pg_type_excel_header)
         
         avg_overall = []
-
-        st.dataframe(monthly_users_count_by_pg_type_excel)
 
         pg_count = 0
         for row in monthly_users_count_by_pg_type_excel:
