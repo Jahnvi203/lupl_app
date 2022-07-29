@@ -8,6 +8,8 @@ from copy import deepcopy
 import altair as alt
 from datetime import datetime as dt
 
+st.session_state.count = 1000
+
 st.title('Welcome to LUPL Statistics')
 
 ########## INPUT ########################################################################################################
