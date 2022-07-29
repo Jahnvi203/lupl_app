@@ -3,6 +3,7 @@
 To start the app, please go to https://jahnvi203-lupl-app-home-pa8fu6.streamlitapp.com/.
 
 
+
 **Input**
 
 Before viewing the statistics, you will first be required to upload 3 files.
@@ -24,6 +25,7 @@ Before viewing the statistics, you will first be required to upload 3 files.
 NOTE: All the uploaded files must be in .CSV format.
 
 
+
 **Overview**
 
 The Overview section consists of the following sub-sections:
@@ -37,6 +39,7 @@ The Overview section consists of the following sub-sections:
 NOTE: The Overview section related to data for Rajah & Tann Singapore only.
 
 
+
 **Detailed**
 
 The Detailed section consists of the following sub-sections:
@@ -48,6 +51,7 @@ The Detailed section consists of the following sub-sections:
       a. The Macro view provides an average change over the month in usage for each user within a branch.
       
       b. The Micro view provides the raw data for each user’s Days Active (“Days”) and Time (in minutes) (“Time”) of usage within a branch.
+
 
 
 **Top 2 Power Users per PG**
