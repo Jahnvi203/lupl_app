@@ -54,7 +54,7 @@ The Top 2 Power Users per PG section lists the top 2 power users for each Practi
 
 **HOW TO START USING THE APP?**
 
-To start using the app, please go to https://jahnvi203-lupl-app-home-pa8fu6.streamlitapp.com/.
+To start using the app, please go to [https://jahnvi203-lupl-app-home-pa8fu6.streamlitapp.com/](https://jahnvi203-lupl-app-home-eyk9y4.streamlit.app/).
 
 
 
