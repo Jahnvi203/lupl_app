@@ -1,15 +1,14 @@
 # lupl_app
 
 
-**PROBLEM STATEMENT**
+## PROBLEM STATEMENT
 
 To get the required data insights from the raw data obtained from Zoho for Lupl usage specifically within Rajah & Tann Singapore for different Practice Groups and types of users (Lawyer/Secretary/Other) across the months.
 
 
-**WHAT DOES THE APP DO & HOW DOES THE APP WORK?**
+## WHAT DOES THE APP DO & HOW DOES THE APP WORK?
 
-
-**Input**
+### Input
 
 Before viewing the statistics, you will first be required to upload 3 files.
   1. Lawyers List
@@ -27,8 +26,7 @@ Before viewing the statistics, you will first be required to upload 3 files.
 
 NOTE: All the uploaded files must be in .CSV format.
 
-
-**Overview**
+### Overview
 
 The Overview section consists of the following sub-sections:
   1. Count of Total Monthly Users - Shows how the number of active users change over the months.
@@ -37,8 +35,7 @@ The Overview section consists of the following sub-sections:
 
 NOTE: The Overview section related to data for Rajah & Tann Singapore only.
 
-
-**Detailed**
+### Detailed
 
 The Detailed section consists of the following sub-sections:
   1. Lists all the branches in the entire Rajah & Tann organisation.
@@ -46,18 +43,16 @@ The Detailed section consists of the following sub-sections:
        - The Macro view provides an average change over the month in usage for each user within a branch.
        - The Micro view provides the raw data for each user’s Days Active (“Days”) and Time (in minutes) (“Time”) of usage within a branch.
 
-**Top 2 Power Users per PG**
+### Top 2 Power Users per PG
 
 The Top 2 Power Users per PG section lists the top 2 power users for each Practice Group along with the type (whether a Lawyer or a secretary).
 
 
-
-**HOW TO START USING THE APP?**
+## HOW TO START USING THE APP?
 
 To start using the app, please go to [https://jahnvi203-lupl-app-home-pa8fu6.streamlitapp.com/](https://jahnvi203-lupl-app-home-eyk9y4.streamlit.app/).
 
 
-
-**TROUBLESHOOTING**
+## TROUBLESHOOTING**
 
 In case of any issues with the app, please submit an issue on GitHub at https://github.com/Jahnvi203/lupl_app/issues along with any description or attachments that may help with understanding the issue.
